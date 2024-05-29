@@ -10,10 +10,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _controller = TextEditingController();
+  String getBarcodeText = "";
 
   void OpenResScreen(String barcode) {
     int barcodeNum = int.parse(barcode);
-    if(barcodeNum == -1) return;
 
     Navigator.push(
       context,
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       true, // 플래시 아이콘 사용 여부
       ScanMode.BARCODE, // 스캔 모드 (BARCODE or QRCODE)
     );
-    OpenResScreen(barcodeScanRes);
+    if(barcodeScanRes != "-1") OpenResScreen(barcodeScanRes);
   }
 
   @override
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               MaterialButton(
                 onPressed:(){
-                  OpenResScreen(_controller.text);
+                  OpenResScreen(getBarcodeText);
                 },
                 color:Color(0xff3a57e8),
                 elevation:0,
