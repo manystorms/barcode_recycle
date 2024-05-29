@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Text(
-                "Did someone forgot their Password?",
+                "바코드를 스캔하고 분리수거 방법을 검색하세요",
                 textAlign: TextAlign.center,
                 overflow:TextOverflow.clip,
                 style:TextStyle(
