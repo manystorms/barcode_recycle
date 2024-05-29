@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               MaterialButton(
                 onPressed:(){
-                  OpenResScreen(getBarcodeText);
+                  OpenResScreen(_controller.text);
                 },
                 color:Color(0xff3a57e8),
                 elevation:0,

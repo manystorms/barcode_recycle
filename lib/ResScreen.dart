@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:barcode_recycle/getData.dart';
 
-class ResScreen extends StatelessWidget {
-  int Barcode_num = 0;
+class ResScreen extends StatefulWidget {
+  final int Barcode_num;
+
   ResScreen({required this.Barcode_num});
 
-  String TitleOfRecycle = "No data";
-  String SubTitleOfRecycle = "No data";
-  String WayToRecycle = "No data";
+  @override
+  _ResScreenState createState() => _ResScreenState();
+}
+
+class _ResScreenState extends State<ResScreen> {
+  int Barcode_num = 0;
+
+  RecycleData Data = RecycleData();
+
+  void getData() async{
+    await Data.getRecycleData(widget.Barcode_num);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +42,13 @@ class ResScreen extends StatelessWidget {
             mainAxisSize:MainAxisSize.max,
             children: [
               Text(
-                Barcode_num.toString(),
+                Data.TitleOfRecycle,
                 textAlign: TextAlign.start,
                 overflow:TextOverflow.clip,
                 style:TextStyle(
                   fontWeight:FontWeight.w700,
                   fontStyle:FontStyle.normal,
-                  fontSize:16,
+                  fontSize:20,
                   color:Color(0xffff5630),
                 ),
               ),
@@ -45,13 +62,13 @@ class ResScreen extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Text(
-                        SubTitleOfRecycle,
+                        Data.SubTitleOfRecycle,
                         textAlign: TextAlign.start,
                         overflow:TextOverflow.clip,
                         style:TextStyle(
                           fontWeight:FontWeight.w700,
                           fontStyle:FontStyle.normal,
-                          fontSize:14,
+                          fontSize:17,
                           color:Color(0xff000000),
                         ),
                       ),
@@ -59,25 +76,25 @@ class ResScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              ClipRRect(
-                borderRadius:BorderRadius.circular(12.0),
-                child:
-                ///***If you have exported images you must have to copy those images in assets/images directory.
-                Image(
-                  image:NetworkImage("https://image.freepik.com/free-photo/happy-lady-stylish-skirt-boater-posing-pink-wall_197531-23653.jpg"),
-                  height:200,
-                  width:MediaQuery.of(context).size.width,
-                  fit:BoxFit.cover,
+              if(Data.ImagePath != 'NoImage')
+                ClipRRect(
+                  borderRadius:BorderRadius.circular(12.0),
+                  child: Image(
+                    image: AssetImage(Data.ImagePath),
+                    height:200,
+                    width:MediaQuery.of(context).size.width,
+                    fit:BoxFit.cover,
+                  ),
                 ),
-              ),
+              SizedBox(height: 20),
               Text(
-                WayToRecycle,
+                Data.WayToRecycle,
                 textAlign: TextAlign.left,
                 overflow:TextOverflow.clip,
                 style:TextStyle(
                   fontWeight:FontWeight.w400,
                   fontStyle:FontStyle.normal,
-                  fontSize:14,
+                  fontSize:17,
                   color:Color(0xff000000),
                 ),
               ),
